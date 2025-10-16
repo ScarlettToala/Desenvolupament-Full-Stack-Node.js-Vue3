@@ -2,14 +2,14 @@ import express from 'express';
 import productRoutes from './routes/products.js';
 import bookRoutes from './routes/books.js';
 import methodOverride from 'method-override';
-import {PORT, SECRET_JWT_KEY} from './config.js'
+import { PORT, SECRET_JWT_KEY } from './config.js'
 import { UserRepository } from './user-repository.js';
 import jwt from 'jsonwebtoken'
 import cookieParser from 'cookie-parser';
 
 const app = express();
-app.use(express.json());
-app.use(cookieParser())
+app.use(express.json());//Para poder recibir datos JSON
+app.use(cookieParser()) //Permite acceder a cookies en req.cookies
 app.use(express.static("public")); // Càrrega CSS i altres fitxers públics
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
@@ -18,83 +18,96 @@ app.set('view engine', 'ejs'); // Motor de plantilles
 app.set('views', './views'); // Ubicació de les plantilles
 
 //inicio middleware
-app.use((req,res,next)=>{
-    const token =req.cookies.access_token
-    req.session={user: null}
-    try{
-        const data=jwt.verify(token,SECRET_JWT_KEY)
-        req.session.user=data
-    }catch(error){
-        req.session.user=null
+
+/**Cuando el usuario inicia sesión correctamente, el servidor genera un JWT con la info del usuario (por ejemplo: { id: 1, username: 'Ana' }). Posteriomrnete se gurada en una cookie del navegador Cadanueva petición verifica que eltken sea valido y si lo es reconstruye un onjeto req.session.user*/
+
+/*Busca el token en la cookie(access_token)*/
+app.use((req, res, next) => {
+
+    const token = req.cookies.access_token
+    req.session = { user: null }
+    try {
+        //si existe intenta verificar con jwt.verify si no eixste el user = null
+        const data = jwt.verify(token, SECRET_JWT_KEY)
+
+        req.session.user = data
+    } catch (error) {
+
+        req.session.user = null
     }
-    next() 
+    next() //en caso de que no exista
+
+    //Aquí la sesión está “simulada” usando JWT + cookie. 
 })
 
 app.use('/products', productRoutes);
 app.use('/books', bookRoutes);
 
 /*Acceso normal*/
-app.get('/',(req,res)=>{
-    const {user}=req.session
-    res.render('home',user)
-});   
+app.get('/', (req, res) => {
+    const { user } = req.session ;
+    res.render('home', user );
+});
 
 /*Acceso a login*/
 app.get('/login', (req, res) => {
-  res.render('login');
+    res.render('login');
 });
 
+/*Acceso a registre*/
+app.get('/register', (req, res) => {
+    res.render('register');
+});
 
-app.post('/login', async (req,res)=>{
-    try{
-        const {username,password}=req.body
-        const user = await UserRepository.login({username,password})
+app.post('/login', async (req, res) => {
+    try {
+        const { username, password } = req.body
+        const user = await UserRepository.login({ username, password })
         const token = jwt.sign(
-            {id: user._id, username: user.username},
-            SECRET_JWT_KEY, 
+            { id: user._id, username: user.username },
+            SECRET_JWT_KEY,
             {
-            expiresIn:'1h'
+                expiresIn: '1h'
             })
         res
-        .cookie('access_token',token,{
-            httpOnly:true, 
-            
-            secure: process.env.NODE_ENV==='production',
-            sameSite:'strict', 
-            maxAge:1000*60*60 
-        })
-        .send({ user,token })
-    }catch (error){
+            .cookie('access_token', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'strict',
+                maxAge: 1000 * 60 * 60
+            })
+            .send({ user, token })
+    } catch (error) {
         res.status(401).send(error.message)
     }
 });
-app.post('/register', async (req,res)=>{
-    
-    const {username,password}=req.body
+app.post('/register', async (req, res) => {
+
+    const { username, password } = req.body
     console.log(req.body)
-    try{
-        const id= await UserRepository.create({username,password});
-        res.send({id})
-    }catch(error){
+    try {
+        const id = await UserRepository.create({ username, password });
+        res.send({ id })
+    } catch (error) {
         res.status(400).send(error.message)
     }
 });
-app.post('/logout',(req,res)=>{
+app.post('/logout', (req, res) => {
     res
-    .clearCookie('access_token')
-    .json({message:'logout successfull'})
-    .send('logout');
+        .clearCookie('access_token')
+        .json({ message: 'logout successfull' })
+        .send('logout');
 });
-app.get('/protected2',(req,res)=>{
-    const {user}=req.session
+app.get('/protected2', (req, res) => {
+    const { user } = req.session
     if (!user) return res.status(403).send('acceso no autorizado')
-    res.render('protected2',user)
+    res.render('protected2', user)
 });
-app.get('/protected',(req,res)=>{
-    const {user}=req.session
+app.get('/protected', (req, res) => {
+    const { user } = req.session
     if (!user) return res.status(403).send('acceso no autorizado')
-    res.render('home',user)
+    res.render('home', user)
 });
-app.listen(PORT,()=>{
+app.listen(PORT, () => {
     console.log(`Server running on port${PORT}`);
 });

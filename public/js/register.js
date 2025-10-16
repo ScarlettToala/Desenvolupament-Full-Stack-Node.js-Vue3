@@ -1,5 +1,6 @@
 registerForm?.addEventListener('submit', e => {
     e.preventDefault()
+    const $ = el => document.querySelector(el);
     const username = $('#register-username').value
     const password = $('#register-password').value
     const confirmPassword = $('#register-confirm-password').value

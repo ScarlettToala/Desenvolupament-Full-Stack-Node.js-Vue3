@@ -1,29 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/home.css">
-  <title>Home</title>
-</head>
-<body>
-  <!-- 🔸 Contenedor superior de iconos -->
-  <div class="iconos-top">
-    <a href="/login" title="Iniciar sesión">
-        <img src="/img/acceso.png" alt="Inicar sesión">
-    </a>
-    <a href="/carrito" title="Carrito de compras"><i class="fas fa-shopping-cart"></i></a>
-  </div>
 
-  <!-- 🔸 Contenedor principal -->
-  <div class="rectangulo">
-    <h1>Silpaza</h1>
-    <nav>
-      <ul>
-        <li><a href="/products">Llistat productes</a></li>
-        <li><a href="/books">Llistat serveis</a></li>
-      </ul>
-    </nav>
-  </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/home.css">
+    <title>Home</title>
+</head>
+
+<body>
+    <!-- Contenedor superior de iconos -->
+
+    <div class="iconos-top">
+        <% if (typeof username==='undefined' ) { %>
+            <h1>Bienvenido invitado 👋</h1>
+            <!-- Usuario no logueado -->
+            <a href="/login" title="Iniciar sesión">
+                <img src="/img/acceso.png" alt="Inicar sesión">
+            </a>
+
+            <% } else { %>
+                <h1>Bienvenido <% username %>
+                </h1>
+
+                <a href="/logout" title="Iniciar sesión">
+                    <img src="/img/logout.png" alt="Inicar sesión">
+                </a>
+                <% } %>
+
+                    <a href="#" title="Carrito de compras">
+                        <img src="/img/carrito.png" alt="Carrito de compra">
+                    </a>
+    </div>
+
+    <!-- 🔸 Contenedor principal -->
+    <div class="rectangulo">
+        <h1>Silpaza</h1>
+        <nav>
+            <ul>
+                <li><a href="/products">Llistat productes</a></li>
+                <li><a href="/books">Llistat serveis</a></li>
+            </ul>
+        </nav>
+    </div>
 </body>
+
 </html>

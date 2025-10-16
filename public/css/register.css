@@ -35,12 +35,12 @@ h2 {
 /* 📑 Formularios */
 .form-container {
   margin-bottom: 20px;
+  text-align: left;
 }
 
 label {
   display: block;
   font-size: 0.95em;
-  text-align: left;
   margin: 10px 0 5px 5%;
   color: #444;
 }
@@ -49,6 +49,7 @@ input[type="text"],
 input[type="password"] {
   width: 90%;
   padding: 12px;
+  margin-left: 5%;
   margin-bottom: 15px;
   border: 2px solid #ffd700; /* amarillo dorado */
   border-radius: 6px;
@@ -86,6 +87,7 @@ button:hover {
 /* ❌ Botón de cerrar sesión */
 #close-session {
   background: linear-gradient(90deg, #ff6f6f, #ffb6b6);
+  margin-bottom: 15px;
 }
 
 #close-session:hover {
@@ -113,8 +115,10 @@ a:hover {
     font-size: 1.5em;
   }
 
-  input {
+  input[type="text"],
+  input[type="password"] {
     width: 100%;
+    margin-left: 0;
   }
 
   .container {
