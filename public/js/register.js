@@ -1,6 +1,12 @@
+const $ = el => document.querySelector(el);
+const registerForm = $('#register-form')
+const registerSpan = $('#register-form span')
+
+const logoutButton = $('#close-session')
+
 registerForm?.addEventListener('submit', e => {
     e.preventDefault()
-    const $ = el => document.querySelector(el);
+
     const username = $('#register-username').value
     const password = $('#register-password').value
     const confirmPassword = $('#register-confirm-password').value
@@ -33,7 +39,7 @@ registerForm?.addEventListener('submit', e => {
 });
 
 
-logoutButton?.addEventListener('click', e => {
+/* logoutButton?.addEventListener('click', e => {
     e.preventDefault()
     fetch('/logout', {
         method: 'POST',
@@ -45,4 +51,4 @@ logoutButton?.addEventListener('click', e => {
             console.log(res)
             window.location.href = '/'
         })
-});
+}); */

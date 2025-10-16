@@ -6,22 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login and registration</title>
     <link rel="stylesheet" type="text/css" href="css/register.css">
-    <script src="/public/js/register.js"></script>
+    <script src="/js/register.js" defer type="module"></script>
 </head>
 
 <body>
     <div class="container">
-
-        <% if (typeof username!='undefined' ) { %>
             <div class="form-container">
-                <h2>Hola <%=username%>!</h2>
-                <p>Estas en el panel de admin</p>
-                <button id="close-session">Cerrar sesión</button>
-                <a href="/protected">Seguir administrando</a>
-            </div>
-        <% } %>
-
-            <div class="form-container">
+                <% if (typeof username==='undefined' ) { %>
                 <form id="register-form">
                     <h2>Register</h2>
                     <label for="register-username">Username:</label>
@@ -38,6 +29,7 @@
                     <p>Tengo cuenta?<a href="login">Iniciar sesión</a></p>
                 </form>
             </div>
+            <% } %>
     </div>
 
 </body>

@@ -2,9 +2,6 @@ const $ = el => document.querySelector(el);
 const loginForm = $('#login-form')
 const loginSpan = $('#login-form span')
 
-const registerForm = $('#register-form')
-const registerSpan = $('#register-form span')
-
 const logoutButton = $('#close-session')
 
 
@@ -21,6 +18,7 @@ loginForm?.addEventListener('submit', e => {
         body: JSON.stringify({ username, password })
     })
         .then(res => {
+            console.log(res)
             if (res.ok) {
                 loginSpan.innerText = 'Session iniciada ..Entrando..'
                 loginSpan.style.color = 'green'
@@ -35,7 +33,7 @@ loginForm?.addEventListener('submit', e => {
 });
 
 
-logoutButton?.addEventListener('click', e => {
+/* logoutButton?.addEventListener('click', e => {
     e.preventDefault()
     fetch('/logout', {
         method: 'POST',
@@ -47,4 +45,4 @@ logoutButton?.addEventListener('click', e => {
             console.log(res)
             window.location.href = '/'
         })
-});
+}); */

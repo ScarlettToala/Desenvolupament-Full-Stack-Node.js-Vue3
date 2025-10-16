@@ -10,29 +10,37 @@
 
 <body>
     <!-- Contenedor superior de iconos -->
-
-    <div class="iconos-top">
-        <% if (typeof username==='undefined' ) { %>
-            <h1>Bienvenido invitado 👋</h1>
-            <!-- Usuario no logueado -->
-            <a href="/login" title="Iniciar sesión">
-                <img src="/img/acceso.png" alt="Inicar sesión">
-            </a>
-
-            <% } else { %>
-                <h1>Bienvenido <% username %>
-                </h1>
-
-                <a href="/logout" title="Iniciar sesión">
-                    <img src="/img/logout.png" alt="Inicar sesión">
+    <div>
+        <div class="iconos-top">
+            <% if (typeof username==='undefined' ) { %>
+                <h1>Bienvenido invitado 👋</h1>
+                <!-- Usuario no logueado -->
+                <a href="/login" title="Iniciar sesión">
+                    <img src="/img/acceso.png" alt="Inicar sesión">
                 </a>
-                <% } %>
+
+                <% } else { %>
+                    <h1>Bienvenido <% username %>
+                    </h1>
+
+                    <a href="/logout" title="Iniciar sesión">
+                        <img src="/img/logout.png" alt="Inicar sesión">
+                    </a>
+                    <% } %>
 
                     <a href="#" title="Carrito de compras">
                         <img src="/img/carrito.png" alt="Carrito de compra">
                     </a>
+        </div>
+        <% if (typeof username!='undefined' ) { %>
+            <div class="form-container">
+                <h2>Hola <%=username%>!</h2>
+                <p>Estas en el panel de admin</p>
+                <button id="close-session">Cerrar sesión</button>
+                <a href="/protected">Seguir administrando</a>
+            </div>
+        <% } %>
     </div>
-
     <!-- 🔸 Contenedor principal -->
     <div class="rectangulo">
         <h1>Silpaza</h1>

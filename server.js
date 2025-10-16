@@ -81,8 +81,8 @@ app.post('/login', async (req, res) => {
         res.status(401).send(error.message)
     }
 });
-app.post('/register', async (req, res) => {
 
+app.post('/register', async (req, res) => {
     const { username, password } = req.body
     console.log(req.body)
     try {
@@ -92,6 +92,7 @@ app.post('/register', async (req, res) => {
         res.status(400).send(error.message)
     }
 });
+
 app.post('/logout', (req, res) => {
     res
         .clearCookie('access_token')

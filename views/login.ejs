@@ -6,37 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login and registration</title>
     <link rel="stylesheet" type="text/css" href="/css/login.css">
-    <script src="/public/js/login.js"></script>
+    <script src="/js/login.js" defer type="module"></script>
 </head>
 
 <body>
     <div class="container">
-        <% if (typeof username!='undefined' ) { %>
+        <% if (typeof username==='undefined' ) { %>
             <div class="form-container">
-                <h2>Hola <%=username%>!</h2>
-                <p>Estas en el panel de admin</p>
-                <button id="close-session">Cerrar sesión</button>
-                <a href="/protected">Seguir administrando</a>
+                <form id="login-form">
+                    <h2>Login</h2>
+                    <label for="login-username">Username:</label>
+                    <input type="text" id="login-username" name="username" required>
+
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" required>
+
+                    <button type="submit">Login</button>
+                    <span>&nbsp;</span>
+                    <p>No tienes cuenta?<a href="register">Registrarse</a></p>
+                </form>
             </div>
-            <% } %>
-
-            <% if (typeof username==='undefined' ) { %>
-                <div class="form-container">
-                    <form id="login-form">
-                        <h2>Login</h2>
-                        <label for="login-username">Username:</label>
-                        <input type="text" id="login-username" name="username" required>
-
-                        <label for="login-password">Password</label>
-                        <input type="password" id="login-password" name="password" required>
-
-                        <button type="submit">Login</button>
-                        <span>&nbsp;</span>
-                        <p>No tienes cuenta?<a href="register">Registrarse</a></p>
-                        
-                    </form>
-                </div>
-                <% } %>
+        <% } %>
     </div>
 
 </body>
