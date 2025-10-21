@@ -1,6 +1,6 @@
 import express from 'express';
 import fs from 'fs';
-import { requireAuth } from '../middlewares/protect.js'; 
+import requireAuth from '../middleware/protect.js'; 
 
 const router = express.Router();
 
@@ -8,10 +8,10 @@ const readData = () => JSON.parse(fs.readFileSync('./db/db.json'));
 const writeData = (data) => fs.writeFileSync('./db/db.json', JSON.stringify(data));
 
 router.get('/', requireAuth,(req, res) => {
-
+    const user = req.session.user;  
     //Un mensaje HTML que se mostrará en la página.
     const htmlMessage = `<p>Benvingut/da!</p>
-                        <a href="/">Home</a>`;
+                        <a href="/protected">Home</a>`;
     const data = readData();
     res.render("products", { user, data, htmlMessage });
 });
@@ -25,7 +25,7 @@ Si lo encuentra, renderiza la vista edit_product con la información.
 */
 router.get('/editProducte/:id', requireAuth, (req, res) => {
     const htmlMessage = `<a href="/products">Llistat de productes</a>`;
-
+    const user = req.session.user;
     const data = readData();
     const product = data.products.find(p => p.id === parseInt(req.params.id));
 
@@ -37,6 +37,7 @@ router.get('/editProducte/:id', requireAuth, (req, res) => {
 /*Similar al anterior, pero en lugar de editarlo, solo muestra la información del producto.
 Usa la vista product.*/
 router.get('/:id', requireAuth , (req, res) => {
+    const user = req.session.user;
     const htmlMessage = `<a href="/products">Llistat de productes</a>`;
     const data = readData();
     const product = data.products.find(p => p.id === parseInt(req.params.id));

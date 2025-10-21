@@ -7,8 +7,9 @@ import productRoutes from './routes/products.js';
 import bookRoutes from './routes/books.js';
 import { PORT, SECRET_JWT_KEY } from './config.js';
 import { UserRepository } from './user-repository.js';
-import sessionMiddleware from './middleware/session.js';
 import requireAuth from './middleware/protect.js';
+import sessionMiddleware from './middleware/session.js';
+
 
 const app = express();
 
@@ -38,7 +39,7 @@ app.get('/profile', requireAuth, (req, res) => {
 });
 
 // Ejemplo de otra ruta protegida simple
-app.get('/protected', requireAuth, (req, res) => {
+app.get('/protected', requireAuth,(req, res) => {
     res.render('protected', { username: req.session.user.username });
 });
 
@@ -57,6 +58,7 @@ app.get('/', (req, res) => {
 // Login y registro
 app.get('/login', (req, res) => res.render('login'));
 app.get('/register', (req, res) => res.render('register'));
+
 
 /* --- AUTENTICACIÓN --- */
 app.post('/login', async (req, res) => {

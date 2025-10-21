@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Benvingut</title>
     <link rel="stylesheet" type="text/css" href="/styles.css">
+    <script src="./public/js/deleteProduct.js" defer type="module"></script>
 </head>
 <body>
     <header>
@@ -23,6 +24,7 @@
                         <span>Preu: €<%= product.price %></span>-->
                         <span><a href="/products/<%=product.id %>">Detall producte</a></span>
                         <span><a href="/products/editProducte/<%=product.id %>">Editar producte</a></span>
+                        <button onclick="deleteProduct('<%= product.id %>')">Eliminar</button>
                     </li>
                 <% }) %>
             </ul>
