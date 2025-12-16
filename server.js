@@ -2,6 +2,7 @@ import express from 'express';
 import methodOverride from 'method-override';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 import productRoutes from './routes/products.js';
 import bookRoutes from './routes/books.js';
@@ -13,13 +14,21 @@ import sessionMiddleware from './middleware/session.js';
 
 const app = express();
 
+/*CORS */
+
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
+
+
 /* --- MIDDLEWARES GLOBALES --- */
 app.use(express.json());                       // Para datos JSON
 app.use(cookieParser());                       // Para leer cookies
 app.use(express.static("public"));             // Archivos estáticos (CSS, imágenes, etc.)
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-app.use(sessionMiddleware);                    // 👈 Verifica el token en cada petición
+app.use(sessionMiddleware);                    //  Verifica el token en cada petición
 
 /* --- CONFIGURACIÓN DE VISTAS --- */
 app.set('view engine', 'ejs');
@@ -99,7 +108,7 @@ app.post('/register', async (req, res) => {
         res.cookie('access_token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
+            sameSite: 'lax',
             maxAge: 1000 * 60 * 60
         });
 

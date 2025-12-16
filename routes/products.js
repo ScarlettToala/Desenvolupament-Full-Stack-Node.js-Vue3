@@ -7,6 +7,20 @@ const router = express.Router();
 const readData = () => JSON.parse(fs.readFileSync('./db/db.json'));
 const writeData = (data) => fs.writeFileSync('./db/db.json', JSON.stringify(data));
 
+/* ===== API (JSON) ===== */
+router.get('/api/products', requireAuth, (req, res) => {
+    const data = readData();
+    res.json(data.products);
+});
+
+router.get('/api/products/:id', requireAuth, (req, res) => {
+    const data = readData();
+    const product = data.products.find(p => p.id === parseInt(req.params.id));
+    if (!product) return res.status(404).json({ error: 'Not found' });
+    res.json(product);
+});
+
+/* ===== VISTAS ===== */
 router.get('/', requireAuth,(req, res) => {
     const user = req.session.user;  
     //Un mensaje HTML que se mostrará en la página.
@@ -123,5 +137,9 @@ router.delete('/:id', requireAuth,(req, res) => {
     
     res.json({ message: 'Product deleted successfully' });
 });
+
+
+
+
 
 export default router;
