@@ -1,6 +1,6 @@
 import express from 'express';
-import methodOverride from 'method-override';
-import jwt from 'jsonwebtoken';
+import methodOverride from 'method-override'; //Importa Express. Es el framework que crea el servidor.
+import jwt from 'jsonwebtoken'; //Permite usar PUT y DELETE desde formularios HTML (cuando solo soportan GET y POST).
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
@@ -28,14 +28,10 @@ app.use(cors({
 /* --- MIDDLEWARES GLOBALES --- */
 app.use(express.json());                       // Para datos JSON
 app.use(cookieParser());                       // Para leer cookies
-app.use(express.static("public"));             // Archivos estáticos (CSS, imágenes, etc.)
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(sessionMiddleware);                    //  Verifica el token en cada petición
 
-/* --- CONFIGURACIÓN DE VISTAS --- */
-app.set('view engine', 'ejs');
-app.set('views', './views');
 
 
 /* --- RUTAS PROTEGIDAS --- */
@@ -68,12 +64,12 @@ app.use('/book', bookRoutes);
 // Página principal (accesible con o sin sesión)
 app.get('/', (req, res) => {
     const { user } = req.session;
-    res.render('home', { username: user ? user.username : null });
+    res.json({ username: user ? user.username : null });
 });
 
 // Login y registro
-app.get('/login', (req, res) => res.render('login'));
-app.get('/register', (req, res) => res.render('register'));
+app.get('/login', (req, res) => res.json({ username: user ? user.username : null }));
+app.get('/register', (req, res) => res.json({ username: user ? user.username : null}));
 
 
 /* --- AUTENTICACIÓN --- */
@@ -119,7 +115,14 @@ app.post('/register', async (req, res) => {
             maxAge: 1000 * 60 * 60
         });
 
-        res.redirect('/protected');
+        //res.redirect('/protected'); 
+        res.json({
+            sucess: true,
+            user: {
+                id: user._id,
+                username: user.username
+            }
+        });
     } catch (error) {
         console.error(error);
         res.status(401).send(error.message);
@@ -135,7 +138,7 @@ app.get('/logout', (req, res) => {
         sameSite: 'strict'
     });
     req.session = { user: null };
-    res.redirect('/');
+    res.json({success: true});
 });
 
 
