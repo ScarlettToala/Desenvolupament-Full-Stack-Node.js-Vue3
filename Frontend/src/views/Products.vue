@@ -78,4 +78,38 @@ onUnmounted(() => {
   font-weight: bold;
   margin-bottom: 1em;
 }
+
+section {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+
+/* Alerta login */
+.alert-login {
+  background-color: #fdecea;
+  color: #e74c3c;
+  padding: 12px 16px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 25px;
+}
+
+/* Grid de productos */
+.product-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
 </style>

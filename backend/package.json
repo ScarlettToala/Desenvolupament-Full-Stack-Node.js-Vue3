@@ -1,0 +1,33 @@
+{
+  "name": "examenra1ra4",
+  "version": "1.0.0",
+  "description": "```bash 📁 proyecto ├── 📁 db │   └── db.json  |   └── User.json  ├── 📁 middleware │   └── protect.js |   └── session.js ├── 📁 public │   └── 📁 css |   └── 📁 js |   └── 📁 img ├── 📁 routes │   └── products.js |   └── books.js ├── 📁 views │   └── home.ejs |   └── register.ejs |   └── login.ejs    |   └── protect.ejs |   └── profile.ejs |   └── products.ejs |   └── detallProducte.ejs |   └── edit_products.ejs |   └── nou_product.ejs ├── server.js ├── request.http ├── package.json ├── user-repositoy.json └── README.md ```",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Scarlett",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "db-local": "^3.1.0",
+    "ejs": "^3.1.10",
+    "express": "^4.22.1",
+    "jsonwebtoken": "^9.0.2",
+    "method-override": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScarlettToala/Autenticacio_EJS_DSPEM.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ScarlettToala/Autenticacio_EJS_DSPEM/issues"
+  },
+  "homepage": "https://github.com/ScarlettToala/Autenticacio_EJS_DSPEM#readme"
+}

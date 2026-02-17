@@ -80,29 +80,125 @@ const handleRegister = async () => {
 </script>
 
 <style scoped>
+/* Contenedor principal */
 main {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #ecf0f1;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Card formulario */
 form {
-    width: 300px;
-    display: flex;
-    flex-direction: column;
+  background-color: #ffffff;
+  padding: 35px 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  width: 340px;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Título */
+form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+/* Labels */
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  color: #2c3e50;
+}
+
+/* Inputs */
 input {
-    margin-bottom: 10px;
-    padding: 5px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  outline: none;
 }
 
+/* Focus elegante */
+input:focus {
+  border-color: #1abc9c;
+  box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.15);
+}
+
+/* Botón */
 button {
-    padding: 8px;
-    cursor: pointer;
+  padding: 12px;
+  background-color: #1abc9c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 5px;
 }
 
+button:hover {
+  background-color: #16a085;
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0px);
+}
+
+/* Error */
 .error {
-    color: red;
+  color: #e74c3c;
+  font-size: 14px;
+  text-align: center;
+  margin-top: 5px;
+}
+
+/* Link login */
+form p {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+form a {
+  color: #1abc9c;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+form a:hover {
+  color: #16a085;
+  text-decoration: underline;
+}
+
+/* Ya registrado */
+div[v-else] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+  font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  form {
+    width: 100%;
+    max-width: 350px;
+  }
 }
 </style>

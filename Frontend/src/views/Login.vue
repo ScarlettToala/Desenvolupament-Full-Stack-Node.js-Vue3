@@ -1,36 +1,38 @@
 <template>
-  <main v-if="!username">
-    <form @submit.prevent="handleLogin">
-      <h2>Login</h2>
+  <main v-if="!username" class="login-container">
+    <form @submit.prevent="handleLogin" class="login-form">
+      <h2>Iniciar Sesión</h2>
 
-      <label for="username">Username:</label>
+      <label for="username">Usuario:</label>
       <input
         type="text"
         id="username"
         v-model="form.username"
+        placeholder="Tu usuario"
         required
       />
 
-      <label for="password">Password:</label>
+      <label for="password">Contraseña:</label>
       <input
         type="password"
         id="password"
         v-model="form.password"
+        placeholder="Tu contraseña"
         required
       />
 
-      <button type="submit">Login</button>
+      <button type="submit" class="btn-login">Iniciar Sesión</button>
 
       <p v-if="error" class="error">{{ error }}</p>
 
-      <p>
-        No tienes cuenta?
-        <RouterLink to="/register">Registrarse</RouterLink>
+      <p class="register-text">
+        ¿No tienes cuenta?
+        <RouterLink class="register-link" to="/register">Registrarse</RouterLink>
       </p>
     </form>
   </main>
 
-  <div v-else>
+  <div v-else class="logged-in-message">
     <h2>Ya estás logueado como {{ username }}</h2>
   </div>
 </template>
@@ -57,10 +59,8 @@ const handleLogin = async () => {
   try {
     const res = await fetch(`${URL_B}/login`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include',//guarda la cookie
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify(form.value)
     })
 
@@ -68,15 +68,10 @@ const handleLogin = async () => {
       throw new Error('Credenciales incorrectas')
     }
 
-    // Opciona para hacer un fetch al perfil
-    const profile = await fetch(`${URL_B}/`, {
-      credentials: 'include'
-    })
-
+    const profile = await fetch(`${URL_B}/`, { credentials: 'include' })
     const data = await profile.json()
     username.value = data.username
 
-    // Redirigir después de login
     router.push('/protected')
 
   } catch (err) {
@@ -86,29 +81,98 @@ const handleLogin = async () => {
 </script>
 
 <style scoped>
-main {
+/* Contenedor principal centrado */
+.login-container {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #ecf0f1;
+  padding: 20px;
 }
 
-form {
-  width: 300px;
+/* Formulario */
+.login-form {
+  background-color: #fff;
+  padding: 30px 25px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  width: 320px;
   display: flex;
   flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-input {
-  margin-bottom: 10px;
-  padding: 5px;
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
 }
 
-button {
-  padding: 8px;
+/* Inputs */
+.login-form input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.login-form input:focus {
+  border-color: #1abc9c;
+  outline: none;
+}
+
+/* Botón login */
+.btn-login {
+  padding: 10px;
+  background-color: #1abc9c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
+.btn-login:hover {
+  background-color: #16a085;
+}
+
+/* Error */
 .error {
-  color: red;
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Registro */
+.register-text {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.register-link {
+  color: #1abc9c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}
+
+/* Mensaje cuando ya está logueado */
+.logged-in-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
 }
 </style>
