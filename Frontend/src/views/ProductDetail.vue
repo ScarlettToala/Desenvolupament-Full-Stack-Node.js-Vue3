@@ -1,7 +1,7 @@
 <template>
-  <div v-if="product">
+  <div v-if="product" class="product-detail">
     <h1>{{ product.name }}</h1>
-    <p><strong>Precio:</strong> {{ product.price }}</p>
+    <p><strong>Precio:</strong> {{ product.price }} €</p>
     <p><strong>Categoría:</strong> {{ product.category }}</p>
 
     <!--  Solo si está autenticado -->
@@ -15,10 +15,10 @@
       </button>
     </div>
 
-    <RouterLink to="/products">Volver</RouterLink>
+    <RouterLink to="/products" class="back-link">Volver</RouterLink>
   </div>
 
-  <div v-else>
+  <div v-else class="loading">
     <p>Cargando producto...</p>
   </div>
 </template>
@@ -75,109 +75,112 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.product-card {
-  max-width: 500px;
+.product-detail {
+  max-width: 600px;
   margin: 40px auto;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-  padding: 35px 25px;
+  padding: 30px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-}
-
-.product-card h1 {
+.product-detail h1 {
   color: #2c3e50;
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 20px;
 }
 
-.product-card p {
+.product-detail p {
+  font-size: 1.2rem;
   color: #555;
-  font-size: 1rem;
   margin: 10px 0;
 }
 
-.product-card p strong {
+.product-detail p strong {
   color: #2c3e50;
 }
 
-.product-card .price {
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #1abc9c;
-  margin-bottom: 15px;
-}
-
-/* Acciones */
-.product-item {
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+.actions {
+  margin: 30px 0;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 15px;
+  justify-content: center;
+  gap: 15px;
 }
 
-.product-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
-}
-
-.product-item strong {
-  font-size: 1.2rem;
-  color: #2c3e50;
-}
-
-.product-item p {
-  color: #7f8c8d;
-  margin: 10px 0 15px 0;
-}
-
-/* Acciones del item */
-.product-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.product-actions a,
-.product-actions button {
-  font-size: 0.9rem;
+.actions a,
+.actions button {
+  padding: 10px 20px;
+  border-radius: 5px;
   font-weight: 500;
-  padding: 6px 10px;
-  border-radius: 6px;
-  transition: background-color 0.2s, color 0.2s, transform 0.2s;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
   cursor: pointer;
   border: none;
-  text-decoration: none;
 }
 
-.product-actions a {
-  color: #1abc9c;
+.actions a {
+  background-color: #3498db;
+  color: white;
 }
 
-.product-actions a:hover {
-  color: #16a085;
+.actions a:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
 }
 
-.product-actions button {
+.actions button {
   background-color: #e74c3c;
   color: white;
 }
 
-.product-actions button:hover {
+.actions button:hover {
   background-color: #c0392b;
   transform: translateY(-2px);
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 20px;
+  border: 1px solid #3498db;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.back-link:hover {
+  background-color: #3498db;
+  color: white;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2c3e50;
+  font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .product-detail {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  .product-detail h1 {
+    font-size: 2rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 </style>
