@@ -74,54 +74,44 @@ const updateProduct = async (updatedData) => {
 <style scoped>
 /* Contenedor principal */
 div[v-if="product"] {
-  display: flex;
-  justify-content: center;
-  padding: 40px 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-/* Card principal */
-header,
-main {
   max-width: 600px;
-  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 header h1 {
   color: #2c3e50;
-  font-size: 1.8rem;
+  font-size: 2rem;
+  margin: 0;
 }
 
-/* Caja tipo card */
 main {
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 20px;
 }
 
 /* Link volver */
 main a {
+  color: #3498db;
   text-decoration: none;
-  text-align: center;
-  background-color: #1abc9c;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 6px;
   font-weight: 500;
-  transition: background-color 0.2s ease;
+  padding: 10px 20px;
+  border: 1px solid #3498db;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 main a:hover {
-  background-color: #16a085;
+  background-color: #3498db;
+  color: white;
 }
 
 /* Estado cargando */
@@ -137,8 +127,8 @@ div[v-else] {
 
 /* Responsive */
 @media (max-width: 600px) {
-  main {
-    padding: 20px;
+  div[v-if="product"] {
+    padding: 10px;
   }
 
   header h1 {

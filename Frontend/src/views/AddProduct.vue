@@ -38,3 +38,45 @@ const createProduct = async (productData) => {
   router.push('/products')
 }
 </script>
+
+<style scoped>
+div {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+h1 {
+  color: #2c3e50;
+  font-size: 2rem;
+  margin: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 20px;
+  border: 1px solid #3498db;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+a:hover {
+  background-color: #3498db;
+  color: white;
+}
+</style>

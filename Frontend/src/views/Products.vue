@@ -1,5 +1,6 @@
 <template>
   <section>
+
     <h2>Lista de Productos</h2>
 
     <!-- Mensaje si no hay usuario logueado -->
@@ -16,6 +17,10 @@
       />
     </ul>
   </section>
+  <RouterLink to="/products/add">
+    <button>Añadir producto</button>
+  </RouterLink>
+
 </template>
 
 <script setup>
@@ -68,31 +73,23 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.product-list {
-  list-style: none;
-  padding: 0;
-}
-
-.alert-login {
-  color: #d9534f;
-  font-weight: bold;
-  margin-bottom: 1em;
-}
-
 section {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 40px auto;
-  padding: 0 20px;
+  padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
   text-align: center;
   color: #2c3e50;
   margin-bottom: 25px;
+  font-size: 2rem;
 }
 
-/* Alerta login */
 .alert-login {
   background-color: #fdecea;
   color: #e74c3c;
@@ -101,6 +98,7 @@ h2 {
   text-align: center;
   font-weight: 500;
   margin-bottom: 25px;
+  border: 1px solid #f5c6cb;
 }
 
 /* Grid de productos */
@@ -108,8 +106,32 @@ h2 {
   list-style: none;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-bottom: 30px;
 }
 
+/* Botón añadir producto */
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 12px 24px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+}
 </style>
